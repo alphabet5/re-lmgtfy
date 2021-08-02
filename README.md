@@ -1,5 +1,6 @@
 # About
-This is simply a lmgtfy.com remake without ads. 
+This is simply a lmgtfy.com remake without ads. This was forked from Arinerron/re-lmgtfy with very few changes.
 
 # How do I use it?
-Simply visit http://arinerron.github.io/re-lmgtfy/ and type in the info it asks for to generate a re-lmgtfy link.
+Visit https://lmgtfy.wtf/ and type in the info it asks for to generate a lmgtfy.wtf link.
+
