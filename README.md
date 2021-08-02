@@ -12,5 +12,5 @@ Visit https://lmgtfy.wtf/ and type in the info it asks for to generate a lmgtfy.
 - Run the nginx docker command.
 
 ```bash
-docker run -d -p 80:80 -p 443:443 -v /etc/letsencrypt/live/lmgtfy.wtf/:/certs/ -v /root/re-lmgtfy/html/:/www/ -v /root/re-lmgtfy/nginx.conf:/etc/nginx/nginx.conf nginx
+docker run -d --name nginx -p 80:80 -p 443:443 -v /etc/letsencrypt/live/lmgtfy.wtf/:/certs/ -v /root/re-lmgtfy/html/:/www/ -v /root/re-lmgtfy/nginx.conf:/etc/nginx/nginx.conf nginx
 ```
