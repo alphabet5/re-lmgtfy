@@ -1,99 +1,109 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>re-lmgtfy generator</title>
-        <style>
-        #googlehere {
-            width: 90%;
-            font-size: 120%;
-            background-color: #C8E6C9;
-            color: #727272;
-            border-color: #000000;
-            border-style: solid;
+	<head>
+		<link rel="shortcut icon" type="image/png" href="https://google.com/favicon.ico"/>
+		<title>LMGTFY</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	</head>
+	<body>
+    <style>
+      .main {
+        display:block;
+        margin: auto;
+        text-align:center;
+        padding-top: 14%;
+      }
+
+      div img {
+        width: 272px;
+        height: 92px;
+        margin:5px;
+      }
+
+      .search {
+        width: 570px;
+        height: 28px;
+        border-top: 1px solid #bdbdbd;
+        border-bottom: 1px solid #d3d3d3;
+        border-right: 1px solid #d3d3d3;
+        border-left: 1px solid #d3d3d3;
+        padding-right: 30px;
+        font: 16px arial, sans-serif;
+        text-indent:5px;
+        background-repeat:no-repeat;
+        background-position:548px 4px;
+        background-size:14px 19px;
         }
-        
-        #urlhere {
-            width: 90%;
-            font-size: 120%;
-            text-decoration: underline;
-            background-color: #C8E6C9;
-            color: #727272;
-            border-color: #000000;
-            border-style: solid;
+
+      .search:hover {
+        border:1px solid #aaaaaa;
+      }
+      /* Popup container */
+      .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        width: 300px;
+        height: 20px;
+      }
+
+      /* The actual popup (appears on top) */
+      .popup .popuptext {
+        visibility: visible;
+        width: 300px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        display: table;
+        margin: 0 auto;
+        /*align-self: center;*/
+        /*z-index: 10;*/
+        /*bottom: 0%;*/
+        /*left: -25%;*/
+        /*margin-left: 100%;*/
+        opacity: 1.0;
+      }
+
+    </style>
+		<div class="main">
+      <div class="popup">
+        <span class="popuptext" id="searchstringpopup">Type your query and click the link to copy.</span>
+      </div>
+      <br>
+			<form name="google"><br>
+				<input id="search-box" type="search" class="search" placeholder="Enter your query here."><br>
+        <input id="url-box" type="search" class="search" action="copyit();"><br>
+        <div id="message"></div>
+			</form>
+      <br>
+		</div>
+    <script>
+      document.getElementById("search-box").onkeyup = function() {
+        if(this.value.length != 0) {
+          document.getElementById("url-box").value = "http://lmgtfy.wtf/go.html?q=" + encodeURIComponent(this.value);
+        } else {
+          document.getElementById("url-box").value = "";
         }
-        
-        html body {
-            background: #bfd255; /* Old browsers */
-            background: -moz-linear-gradient(top,  #bfd255 0%, #8eb92a 50%, #72aa00 51%, #9ecb2d 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(top,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to bottom,  #bfd255 0%,#8eb92a 50%,#72aa00 51%,#9ecb2d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 ); /* IE6-9 */
+        $('#message').html("");
+      }
+      function copyit() {
+        try {
+          $('#url-box').select()
+          var successful = document.execCommand('copy');
+          var msg = successful ? 'Link successfully copied to clipboard' : 'JavaScript copy not supported -- Please use Ctrl-C to copy the text.';
+          $('#message').html(msg);
+        } catch (err) {
+        console.log('unable to copy using document.execCommand(copy)');
         }
-        
-        html body center {
-            font-size: 100%;
-            line-height: 90%;
-            border-style: solid;
-            padding-bottom: 1%;
-            padding-top: 1%;
-            margin-right: 30%;
-            margin-left: 30%;
-        }
-        
-        #tut {
-            font-size: 150%;
-            color: #212121;
-            font-family: Lato;
-        }
-        
-        #googlehere {
-            border-radius: 10px;
-        }
-        
-        #urlhere {
-            border-radius: 10px;
-        }
-        
-        html body center {
-            border-radius: 30px;
-        }
-        
-        center {
-            margin-top: 20%
-        }
-        </style>
-        <script>
-          function copyit() {
-            try {
-              var successful = document.execCommand('copy');
-              var msg = successful ? 'Link successfully copied to clipboard' : 'JavaScript copy not supported -- Please use Ctrl-C to copy the text.';
-              document.getElementById('copymsg').innerHTML = msg;
-            } catch (err) {
-              console.log('unable to copy using document.execCommand(copy)');
-            }
-          }
-        </script>
-    </head>
-    <body>
-        <center>
-            <div id="tut">What do you want it to Google search?</div>
-            <br>
-            <input type="text" id="googlehere">
-            <br>
-            <br>
-            <div id="tut">Your URL is:</div>
-            <br>
-            <input type="text" id="urlhere" onClick="this.select();copyit();" readonly>
-            <script>
-                document.getElementById("googlehere").onkeyup = function() {
-                   if(this.value.length != 0) {
-                       document.getElementById("urlhere").value = "http://lmgtfy.wtf/go.html?q=" + encodeURIComponent(this.value);
-                   } else {
-                       document.getElementById("urlhere").value = "";
-                   }
-                   //document.getElementById("urlhere").value = this.value;  
-                }
-            </script>
-            <p><div id="copymsg">Click the link to copy it to your clipboard</div></p>
-        </center>
-    </body>
+      }
+      $(document).ready(function(){
+        $('#url-box').bind('click', function(){
+            copyit();
+        })
+      })
+    </script>
+	</body>
 </html>
