@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="shortcut icon" type="image/png" href="https://google.com/favicon.ico"/>
+		<title>LMGTFY</title>
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+	</head>
+	<body>
+    <main class="container">
+        Type your query and click the link to copy.
+      <br>
+			<form name="google"><br>
+				<input id="search-box" autocomplete="off" type="search" class="search" placeholder="Enter your query here." onkeyup="updateUrl()"><br>
+        <button id="url-box" class="secondary" type="button" onclick="copyit();"> </button>
+        <div id="message"></div>
+			</form>
+      <br>
+		</div>
+    </main>
+    <script>
+      function updateUrl() {
+        document.getElementById("url-box").innerHTML = window.location.href + "go.html?q=" +encodeURIComponent(document.getElementById("search-box").value);
+        document.getElementById("message").innerHTML = "";
+      };
+      function copyit() {
+        try {
+          navigator.clipboard.writeText(document.getElementById("url-box").innerHTML);
+          document.getElementById("message").innerHTML = "Link Copied.";
+        } catch {
+          document.getElementById("message").innerHTML = "Link failed to copy. :(";
+        }
+      };
+      updateUrl();
+    </script>
+	</body>
+</html>
